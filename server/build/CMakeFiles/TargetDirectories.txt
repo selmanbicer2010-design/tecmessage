@@ -1,0 +1,3 @@
+C:/ZedProjects/tecmessage/server/build/CMakeFiles/tecmessage.dir
+C:/ZedProjects/tecmessage/server/build/CMakeFiles/edit_cache.dir
+C:/ZedProjects/tecmessage/server/build/CMakeFiles/rebuild_cache.dir
