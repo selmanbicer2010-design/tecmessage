@@ -2,7 +2,7 @@
 
 using namespace tecm;
 
-int thread_pool::init()
+thread_pool::thread_pool()
 {
     threadPool_.reserve(threadCount_);
     for (int i = 0; i < threadCount_; i++)
@@ -25,10 +25,9 @@ int thread_pool::init()
         })
         });
     }
-    return 0;
 }
 
-int thread_pool::cleanup()
+thread_pool::~thread_pool()
 {
     mtx_.lock();
     running_ = false;
@@ -40,7 +39,6 @@ int thread_pool::cleanup()
     }
     threadPool_.clear();
     workPool_.clear();
-    return 0;
 }
 
 int32_t thread_pool::assign_many(const std::vector<std::function<void()>>& work)

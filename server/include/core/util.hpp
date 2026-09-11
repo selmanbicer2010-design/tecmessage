@@ -8,8 +8,52 @@
 #include <new>
 #include <cstdint>
 #include <vector>
+#include <unordered_map>
 
 namespace util{
+
+    template <class value_type, int32_t first_index = 0>
+    class sequential_unordered_map {
+        int32_t counter_ = first_index;
+        std::unordered_map<int32_t, value_type> data_{};
+    public:
+        const std::unordered_map<int32_t, value_type>& unordered_map() {
+            return data_;
+        }
+        int32_t current_id() {
+            return counter_ - 1;
+        }
+        const value_type& operator[](int32_t hash) const {
+            return data_.at(hash);
+        }
+        const value_type* find(int32_t key) const {
+            auto it = data_.find(key);
+            if (it != data_.end()) {
+                return &(it->second);
+            }
+            return nullptr;
+        }
+        value_type* find(int32_t key) {
+            auto it = data_.find(key);
+            if (it != data_.end()) {
+                return &(it->second);
+            }
+            return nullptr;
+        }
+        void erase(int32_t key) {
+            data_.erase(key);
+        }
+        int32_t push(const value_type& value) {
+            int32_t key = counter_++;
+            data_.insert({key, value});
+            return key;
+        }
+        int32_t push(value_type&& value) {
+            int32_t key = counter_++;
+            data_.insert({key, std::move(value)});
+            return key;
+        }
+    };
 
     template <typename t_data>
     requires (!std::is_convertible_v<t_data, int>)

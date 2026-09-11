@@ -61,8 +61,8 @@ private:
 public:
     uint32_t threadcount() { return threadCount_; }
 
-    int init();
-    int cleanup();
+    thread_pool();
+    ~thread_pool();
 
     template <typename Func>
     requires std::is_invocable_r_v<void, Func>
