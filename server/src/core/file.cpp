@@ -1,20 +1,36 @@
 #include "core/file.hpp"
+#include "core/util.hpp"
 
 #include <fstream>
 #include <print>
 #include <filesystem>
-
-#define ERROR(log, erc) std::println("err; log: {}, erc: {}", (log), (erc));
+#include <source_location>
+#include "core/enum.hpp"
 
 namespace file{
 
-    std::vector<uint8_t> readAsBinary(const std::string& filename)
-    {
-        if (!exists(filename)) { ERROR(filename + " not found", 404); return {}; }
-        int v = 0;
-        std::ifstream file(filename, std::ios::ate | std::ios::binary);
+    void ferr(std::string_view path, int32_t error_type, int32_t* err, std::source_location location) {
+        if (err) {
+            *err = error_type;
+            ERROR(std::string{path} + util::this_function(location), error_type);
+        }
+    }
 
-        if ((v = !file.is_open())) { ERROR(filename + " could not be read", 100) return {}; }
+    std::vector<uint8_t> fread(std::string_view path, int32_t* err)
+    {
+        if (err) {*err = FILE_ERROR_NONE; }
+        if (!exists(path, err)) {
+            ferr(path, FILE_ERROR_NOT_FOUND, err);
+            return {};
+        }
+
+        std::ifstream file(std::string{path}, std::ios::ate | std::ios::binary);
+
+        if (!file.is_open()) {
+            ferr(path, FILE_ERROR_COULD_NOT_BE_READ, err);
+            return {};
+        }
+
         size_t fileSize = (size_t) file.tellg();
         std::vector<uint8_t> buffer(fileSize);
         file.seekg(0);
@@ -23,21 +39,33 @@ namespace file{
         return buffer;
     }
 
-    std::string readAsString(const std::string& filename)
+    bool exists(std::string_view path, int32_t* err)
     {
-        auto bytes = readAsBinary(filename);
-        return std::string(bytes.begin(), bytes.end());
+        if (err) {*err = FILE_ERROR_NONE; }
+        std::error_code ec;
+        bool exists = std::filesystem::exists(path, ec);
+        if (ec) {
+            ferr(path, FILE_ERROR_INVALID_ACCESS, err);
+            return {};
+        }
+        if (!exists) {
+            ferr(path, FILE_ERROR_NOT_FOUND, err);
+            return {};
+        }
+        return exists;
     }
 
-    bool exists(const std::string& path)
+    uint64_t size(std::string_view path, int32_t* err)
     {
-        return std::filesystem::exists(path);
-    }
-
-    long size(const std::string& filename)
-    {
-        if (!exists(filename)) { ERROR(filename + " not found", 404);; return -1; }
-        return std::filesystem::file_size(filename);
+        if (err) {*err = FILE_ERROR_NONE; }
+        if (!exists(path, err)) { if (err) {*err = FILE_ERROR_NOT_FOUND; } return 0; }
+        std::error_code ec;
+        uint64_t size = std::filesystem::file_size(path, ec);
+        if (ec) {
+            ferr(path, FILE_ERROR_INVALID_ACCESS, err);
+            return {};
+        }
+        return size;
     };
 
     namespace json
@@ -107,7 +135,8 @@ namespace file{
 
         tree deserialize(const std::string& path)
         {
-            return parse(readAsString(path));
+            auto buff = fread(path);
+            return parse(std::string{buff.begin(), buff.end()});
         }
 
         uptrjval parsedetail(std::string_view src)

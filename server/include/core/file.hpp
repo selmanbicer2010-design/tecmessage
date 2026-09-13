@@ -1,4 +1,7 @@
+#pragma once
+
 #include <cstdint>
+#include <string_view>
 #include <vector>
 #include <string>
 #include <memory>
@@ -7,12 +10,11 @@
 
 namespace file{
 
-    std::vector<uint8_t> readAsBinary(const std::string& filename);
-    std::string readAsString(const std::string& filename);
+    void ferr(std::string_view path, int32_t error_type, int32_t* err, std::source_location location = std::source_location::current());
 
-    bool exists(const std::string& filename);
-
-    long size(const std::string& filename);
+    std::vector<uint8_t> fread(std::string_view path, int32_t* err = nullptr);
+    bool exists(std::string_view path, int32_t* err = nullptr);
+    uint64_t size(std::string_view path, int32_t* err = nullptr);
 
     namespace json
     {

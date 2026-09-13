@@ -16,6 +16,11 @@ function main(): number
       console.log("disconnected");
   };
 
+  window.addEventListener("keydown", (event: KeyboardEvent) => {
+    event;
+    socket.send("Hello");
+  });
+
   return 0;
 }
 
