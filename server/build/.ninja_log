@@ -22,3 +22,6 @@
 6222	6806	8110050230988159	tecmessage.exe	d688e154f47e6d8d
 18	2644	8110052841937980	CMakeFiles/tecmessage.dir/src/main/main.cpp.obj	5f11e8f572a2d4be
 2645	3250	8110052868201829	tecmessage.exe	d688e154f47e6d8d
+59	1757	8110716390721973	CMakeFiles/tecmessage.dir/src/core/util.cpp.obj	4dc409827f83071e
+28	4672	8110716390411967	CMakeFiles/tecmessage.dir/src/main/main.cpp.obj	5f11e8f572a2d4be
+4672	5860	8110716436851949	tecmessage.exe	d688e154f47e6d8d
