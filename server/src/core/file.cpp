@@ -12,7 +12,7 @@ namespace file{
     void ferr(std::string_view path, int32_t error_type, int32_t* err, std::source_location location) {
         if (err) {
             *err = error_type;
-            ERROR(std::string{path} + util::this_function(location), error_type);
+            TECM_ERROR(std::string{path} + util::this_function(location), error_type);
         }
     }
 

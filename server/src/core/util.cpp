@@ -26,12 +26,12 @@ namespace util{
         uresult<stoi32result> result{false};
         result.value = 0;
         result.charLength = 0;
-        if (str.empty()) return false;
+        if (str.empty()) return result;
         bool negative = str[0] == '-';
         for (int i = 0 + negative; i < str.size(); i++)
         {
             char c = str[i];
-            if (int num = c - 48; num >= 0 and num <= 9)
+            if (int num = c - '0'; num >= 0 and num <= 9)
             {
                 result.success = true;
                 result.value *= 10;

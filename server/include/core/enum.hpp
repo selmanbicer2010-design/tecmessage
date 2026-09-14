@@ -2,13 +2,11 @@
 #include <cinttypes>
 #include <string>
 
-
-
-constexpr bool BROADCAST_ERRORS = 1;
+constexpr bool BROADCAST_ERRORS = false;
 
 #define LOG_ASSERT(predicate, log) assert(predicate); if (!predicate and BROADCAST_ERRORS) { std::cout << log << '\n'; } else {}
 
-#define ERROR(log, erc) \
+#define TECM_ERROR(log, erc) \
     if constexpr (BROADCAST_ERRORS) { \
         std::println("err; log: {}, erc: {}", (log), (erc)); \
     } else {}\

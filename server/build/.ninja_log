@@ -1,0 +1,24 @@
+# ninja log v7
+20	2887	8110042487903287	CMakeFiles/tecmessage.dir/src/main/main.cpp.obj	5f11e8f572a2d4be
+6452	7056	8110042552226374	tecmessage.exe	d688e154f47e6d8d
+5	5989	8108923867209377	build.ninja	adfa34e745b8a2a3
+5	5989	8108923867209377	C:/ZedProjects/tecmessage/server/build/cmake_install.cmake	adfa34e745b8a2a3
+15	574	8108922421483213	CMakeFiles/tecmessage.dir/src/core/threadpool.cpp.obj	882dd6947f2d6a86
+24	757	8110042487943264	CMakeFiles/tecmessage.dir/src/core/util.cpp.obj	4dc409827f83071e
+34	3570	8110042488048280	CMakeFiles/tecmessage.dir/src/network/server.cpp.obj	e54d46a8bbbd0fc1
+31	6452	8110042488013271	CMakeFiles/tecmessage.dir/src/network/client.cpp.obj	3583f1e06db783ff
+27	1559	8110042487978309	CMakeFiles/tecmessage.dir/src/core/file.cpp.obj	53beda75dae1a24c
+25	779	8110042857888172	CMakeFiles/tecmessage.dir/src/core/util.cpp.obj	4dc409827f83071e
+29	1583	8110042857923174	CMakeFiles/tecmessage.dir/src/core/file.cpp.obj	53beda75dae1a24c
+21	2912	8110042857848177	CMakeFiles/tecmessage.dir/src/main/main.cpp.obj	5f11e8f572a2d4be
+36	3561	8110042857993270	CMakeFiles/tecmessage.dir/src/network/server.cpp.obj	e54d46a8bbbd0fc1
+32	6282	8110042857958171	CMakeFiles/tecmessage.dir/src/network/client.cpp.obj	3583f1e06db783ff
+6282	6856	8110042920452984	tecmessage.exe	d688e154f47e6d8d
+24	799	8110050169020036	CMakeFiles/tecmessage.dir/src/core/util.cpp.obj	4dc409827f83071e
+28	1410	8110050169055040	CMakeFiles/tecmessage.dir/src/core/file.cpp.obj	53beda75dae1a24c
+20	2916	8110050168975037	CMakeFiles/tecmessage.dir/src/main/main.cpp.obj	5f11e8f572a2d4be
+35	3500	8110050169125039	CMakeFiles/tecmessage.dir/src/network/server.cpp.obj	e54d46a8bbbd0fc1
+31	6221	8110050169090048	CMakeFiles/tecmessage.dir/src/network/client.cpp.obj	3583f1e06db783ff
+6222	6806	8110050230988159	tecmessage.exe	d688e154f47e6d8d
+18	2644	8110052841937980	CMakeFiles/tecmessage.dir/src/main/main.cpp.obj	5f11e8f572a2d4be
+2645	3250	8110052868201829	tecmessage.exe	d688e154f47e6d8d

@@ -1,0 +1,3 @@
+-IC:/vcpkg/installed/x64-windows/include
+-std=c++23
+-Iinclude
