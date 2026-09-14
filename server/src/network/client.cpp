@@ -18,21 +18,29 @@ void tecmn::client_connection::run() {
 }
 
 void tecmn::client_connection::exit(int32_t reason) {
-    boost::asio::dispatch(
-        strand,
-        [this, reason] {
-            if (dead) return;
-            dead = true;
-            if (server_p) {
-                disconnected.fire(reason);
-                server_p->access_ws_map_with_lock([&](auto& client_map){
-                    if (this_in_server_storage.has_key()) {
-                        client_map.erase(this_in_server_storage.key());
-                    }
-                });
-            }
+    boost::asio::dispatch(strand, [this, reason] {
+        if (dead) return;
+        dead = true;
+        if (server_p) {
+            disconnected.fire(reason);
+            server_p->access_ws_map_with_lock([&](auto& client_map){
+                if (this_in_server_storage.has_key()) {
+                    client_map.erase(this_in_server_storage.key());
+                }
+            });
         }
-    );
+    });
+}
+
+void tecmn::client_connection::exit_already_locked(int32_t reason) {
+    if (dead) return;
+    dead = true;
+    if (server_p) {
+        disconnected.fire(reason);
+        if (this_in_server_storage.has_key()) {
+            this_in_server_storage.owner().erase(this_in_server_storage.key());
+        }
+    }
 }
 
 bool tecmn::client_connection::check_failure(boost::beast::error_code ec, const char* errstr) {

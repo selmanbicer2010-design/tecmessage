@@ -121,7 +121,10 @@ namespace util{
         int32_t counter_ = counter_min;
         std::unordered_map<int32_t, value_type> data_{};
     public:
-        const std::unordered_map<int32_t, value_type>& unordered_map() {
+        const std::unordered_map<int32_t, value_type>& unordered_map() const {
+            return data_;
+        }
+        std::unordered_map<int32_t, value_type>& unordered_map() {
             return data_;
         }
         int32_t current_id() {
@@ -266,6 +269,9 @@ namespace util{
                 return owner().unordered_map().contains(key_v) and key_v >= sequential_unordered_map<value_type>::counter_min;
             }
             return false;
+        }
+        bool is_alive() const {
+            return has_owner() and has_key();
         }
         sequential_unordered_map<value_type>& owner() const {
             return *owner_p;

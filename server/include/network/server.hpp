@@ -9,6 +9,8 @@
 
 namespace tecmn{
 
+using endpoint_t = boost::asio::ip::tcp::endpoint;
+
 class server {
     friend class client_connection;
     friend class http_session;
@@ -25,12 +27,36 @@ private:
     void make_http_client(boost::beast::tcp_stream&& stream, http_request_t&& http_req);
 
 public:
-    server(boost::asio::io_context& io, boost::asio::ip::tcp::endpoint endpoint);
+    server(boost::asio::io_context& io, endpoint_t endpoint);
     void run();
 
     event::async_event<util::handle_val<client_connection>> client_connected;
     util::sequential_unordered_map<client_connection> clients;
     util::sequential_unordered_map<http_session> http_sessions;
+
+    template <typename func>
+    requires (std::is_invocable_v<func, util::handle_val<client_connection>>)
+    auto for_each_client(func&& fn) {
+        std::lock_guard<std::mutex> lg{map_ws_mtx};
+        for (auto& [key, client] : clients.unordered_map()) {
+            fn(util::handle_val<client_connection>{clients, key});
+        }
+    }
+
+    template <typename func>
+    requires (std::is_invocable_v<func, util::handle_val<client_connection>>)
+    auto for_each_client_without_lock(func&& fn) {
+        std::vector<util::handle_val<client_connection>> culled;
+        {
+            std::lock_guard<std::mutex> lg{map_ws_mtx};
+            for (auto& [key, client] : clients.unordered_map()) {
+                culled.push_back(util::handle_val<client_connection>{clients, key});
+            }
+        }
+        for (auto& client : culled) {
+            fn(client);
+        }
+    }
 
     template <typename func>
     requires (std::is_invocable_v<func, util::sequential_unordered_map<client_connection>&>)

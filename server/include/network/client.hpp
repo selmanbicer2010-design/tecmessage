@@ -52,6 +52,7 @@ public:
     void run();
     bool is_alive();
     void exit(int32_t reason);
+    void exit_already_locked(int32_t reason);
 
     event::async_event<int32_t> disconnected;
     event::async_event<message> message_recieved;

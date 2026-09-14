@@ -4,7 +4,7 @@
 #include "network/server.hpp"
 #include "core/enum.hpp"
 
-tecmn::server::server(boost::asio::io_context& io, boost::asio::ip::tcp::endpoint endpoint) : io(io), acceptor(boost::beast::net::make_strand(io)) {
+tecmn::server::server(boost::asio::io_context& io, endpoint_t endpoint) : io(io), acceptor(boost::beast::net::make_strand(io)) {
     boost::beast::error_code ec;
 
     auto err = acceptor.open(endpoint.protocol(), ec);
