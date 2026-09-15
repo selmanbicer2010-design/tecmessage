@@ -1,8 +1,6 @@
 #include "core/threadpool.hpp"
 
-using namespace tecm;
-
-thread_pool::thread_pool()
+thread::thread_pool::thread_pool()
 {
     threadPool_.reserve(threadCount_);
     for (int i = 0; i < threadCount_; i++)
@@ -27,7 +25,7 @@ thread_pool::thread_pool()
     }
 }
 
-thread_pool::~thread_pool()
+thread::thread_pool::~thread_pool()
 {
     mtx_.lock();
     running_ = false;
@@ -41,7 +39,7 @@ thread_pool::~thread_pool()
     workPool_.clear();
 }
 
-int32_t thread_pool::assign_many(const std::vector<std::function<void()>>& work)
+int32_t thread::thread_pool::assign_many(const std::vector<std::function<void()>>& work)
 {
     for (int i = 0; i < work.size(); i++)
     {
@@ -50,7 +48,7 @@ int32_t thread_pool::assign_many(const std::vector<std::function<void()>>& work)
     return 0;
 }
 
-int32_t thread_pool::block_for_many(const std::vector<std::function<void()>>& work)
+int32_t thread::thread_pool::block_for_many(const std::vector<std::function<void()>>& work)
 {
     std::mutex mtx;
     std::condition_variable cv;

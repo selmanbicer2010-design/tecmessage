@@ -9,7 +9,7 @@
 
 namespace tecmn {
 
-using strand_t = boost::asio::strand<boost::asio::io_context::executor_type>;
+using strand_t = boost::beast::websocket::stream<boost::asio::ip::tcp::socket>::executor_type;
 using http_request_t = boost::beast::http::request<boost::beast::http::string_body>;
 
 class server;
@@ -25,9 +25,9 @@ struct message {
 class client_connection {
     friend class server;
 private:
-    strand_t strand;
     boost::beast::websocket::stream<boost::beast::tcp_stream> websocket;
     boost::beast::flat_buffer buff;
+    strand_t strand;
     http_request_t request;
     message recieve_buffer;
     std::deque<message> send_buffer_queue;

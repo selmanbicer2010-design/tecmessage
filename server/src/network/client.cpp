@@ -7,13 +7,11 @@
 #include "core/enum.hpp"
 
 tecmn::client_connection::client_connection(tecmn::server& server_ref, boost::asio::ip::tcp::socket&& socket, http_request_t&& request)
-: server_p(&server_ref), websocket(std::move(socket)), request(std::move(request)), strand(boost::asio::make_strand(server_ref.io)) {}
+: server_p(&server_ref), websocket(std::move(socket)), request(std::move(request)), strand(websocket.get_executor()) {}
 
 void tecmn::client_connection::run() {
     boost::beast::net::dispatch(strand,
-        boost::beast::bind_front_handler(
-            &client_connection::on_run,
-            this)
+        boost::beast::bind_front_handler(&client_connection::on_run, this)
     );
 }
 
@@ -92,9 +90,7 @@ void tecmn::client_connection::on_run() {
     );
     websocket.async_accept(
         request,
-        boost::beast::bind_front_handler(
-            &client_connection::on_accept,
-            this)
+        boost::beast::bind_front_handler(&client_connection::on_accept, this)
     );
 }
 
@@ -108,9 +104,7 @@ void tecmn::client_connection::do_read() {
     if (dead) return;
     websocket.async_read(
         buff,
-        boost::beast::bind_front_handler(
-            &client_connection::on_read,
-            this)
+        boost::beast::bind_front_handler(&client_connection::on_read, this)
     );
 }
 
@@ -123,8 +117,10 @@ void tecmn::client_connection::on_read(boost::beast::error_code ec, std::size_t 
     recieve_buffer.data.resize(buff.size());
     memcpy(recieve_buffer.data.data(), buff.data().data(), buff.size());
     recieve_buffer.is_text = websocket.got_text();
-    message_recieved.fire({recieve_buffer});
     buff.clear();
+    message_recieved.fire({recieve_buffer});
+
+    do_read();
 }
 
 void tecmn::client_connection::do_write() {
@@ -132,9 +128,7 @@ void tecmn::client_connection::do_write() {
     websocket.text(send_buffer_queue.front().is_text);
     websocket.async_write(
         boost::asio::buffer(send_buffer_queue.front().data),
-        boost::beast::bind_front_handler(
-            &client_connection::on_write,
-            this)
+        boost::beast::bind_front_handler(&client_connection::on_write, this)
     );
 }
 
@@ -147,7 +141,6 @@ void tecmn::client_connection::on_write(boost::beast::error_code ec, std::size_t
         do_write();
         return;
     }
-    do_read();
 }
 
 void tecmn::client_connection::send(std::string message) {
@@ -308,7 +301,7 @@ boost::beast::http::message_generator handle_request(boost::beast::string_view d
 }
 
 tecmn::http_session::http_session(server& server_ref, boost::asio::ip::tcp::socket&& socket, http_request_t&& request, std::string doc_root)
-: server_p(&server_ref), stream(std::move(socket)), request(std::move(request)), doc_root(doc_root), strand(boost::asio::make_strand(server_ref.io)) {}
+: server_p(&server_ref), stream(std::move(socket)), request(std::move(request)), doc_root(doc_root), strand(stream.get_executor()) {}
 
 void tecmn::http_session::run() {
     boost::beast::net::dispatch(strand,

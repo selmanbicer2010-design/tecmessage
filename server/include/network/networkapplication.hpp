@@ -13,7 +13,7 @@ class network_application {
 public:
     application_context& context;
     boost::asio::io_context io{};
-    tecm::thread_pool pool{};
+    thread::thread_pool pool{};
     int8_t thread_count = 8;
     tecmn::server server = [&]{
         auto const address = boost::asio::ip::make_address("0.0.0.0");

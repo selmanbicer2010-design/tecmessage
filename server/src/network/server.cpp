@@ -39,8 +39,7 @@ void tecmn::server::run() {
 
 void tecmn::server::do_accept() {
     acceptor.async_accept(boost::beast::net::make_strand(io),
-        boost::beast::bind_front_handler(&server::on_accept, this)
-    );
+        boost::beast::bind_front_handler(&server::on_accept, this));
 }
 
 void tecmn::server::on_accept(boost::beast::error_code ec, boost::asio::ip::tcp::socket socket) {

@@ -15,6 +15,7 @@ add_executable(tecmessage
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/network/client.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/network/server.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/network/networkapplication.cpp
 )
 
 target_include_directories(tecmessage PRIVATE

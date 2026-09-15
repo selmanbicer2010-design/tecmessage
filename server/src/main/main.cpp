@@ -1,3 +1,4 @@
+#include "core/util.hpp"
 #include "network/networkapplication.hpp"
 #include "core/file.hpp"
 
@@ -11,7 +12,7 @@ int main(int argc, char* argv[])
     tecmn::application_context context;
     tecmn::network_application app{context};
     app.set_client_connected([&](util::handle_val<tecmn::client_connection> client) {
-        event::pconnect(client->message_recieved, client->disconnected, [client](tecmn::message msg) {
+        event::pconnect(client->message_recieved, client->disconnected, [&app, client](tecmn::message msg) {
             auto jsonstr = R"json(
                 {
                   "type": "message",
@@ -20,7 +21,10 @@ int main(int argc, char* argv[])
                   "id": 42
                 }
             )json";
-            client->send(std::string("echo: ") + file::json::serialize(file::json::parse(jsonstr)));
+            app.for_each_client([&](util::handle_val<tecmn::client_connection> each_client) {
+                each_client->send("on click");
+            });
+            //client->send(std::string("echo: ") + file::json::serialize(file::json::parse(jsonstr)));
         });
 
         client->disconnected.once([&, client](int32_t reason) {

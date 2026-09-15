@@ -115,6 +115,17 @@ build CMakeFiles/tecmessage.dir/src/network/server.cpp.obj: CXX_COMPILER__tecmes
   TARGET_PDB = tecmessage.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\tecmessage.dir
 
+build CMakeFiles/tecmessage.dir/src/network/networkapplication.cpp.obj: CXX_COMPILER__tecmessage_unscanned_Debug C$:/ZedProjects/tecmessage/server/src/network/networkapplication.cpp || cmake_object_order_depends_target_tecmessage
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles\tecmessage.dir\src\network\networkapplication.cpp.obj.d
+  FLAGS = -O0 -g -Xclang -gcodeview -std=gnu++23 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd
+  INCLUDES = -IC:/ZedProjects/tecmessage/server/include -isystem C:/ZedProjects/tecmessage/server/build/vcpkg_installed/x64-windows/include
+  OBJECT_DIR = CMakeFiles\tecmessage.dir
+  OBJECT_FILE_DIR = CMakeFiles\tecmessage.dir\src\network
+  TARGET_COMPILE_PDB = CMakeFiles\tecmessage.dir\
+  TARGET_PDB = tecmessage.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\tecmessage.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target tecmessage
@@ -123,7 +134,7 @@ build CMakeFiles/tecmessage.dir/src/network/server.cpp.obj: CXX_COMPILER__tecmes
 #############################################
 # Link the executable tecmessage.exe
 
-build tecmessage.exe: CXX_EXECUTABLE_LINKER__tecmessage_Debug CMakeFiles/tecmessage.dir/src/main/main.cpp.obj CMakeFiles/tecmessage.dir/src/core/threadpool.cpp.obj CMakeFiles/tecmessage.dir/src/core/util.cpp.obj CMakeFiles/tecmessage.dir/src/core/file.cpp.obj CMakeFiles/tecmessage.dir/src/network/client.cpp.obj CMakeFiles/tecmessage.dir/src/network/server.cpp.obj
+build tecmessage.exe: CXX_EXECUTABLE_LINKER__tecmessage_Debug CMakeFiles/tecmessage.dir/src/main/main.cpp.obj CMakeFiles/tecmessage.dir/src/core/threadpool.cpp.obj CMakeFiles/tecmessage.dir/src/core/util.cpp.obj CMakeFiles/tecmessage.dir/src/core/file.cpp.obj CMakeFiles/tecmessage.dir/src/network/client.cpp.obj CMakeFiles/tecmessage.dir/src/network/server.cpp.obj CMakeFiles/tecmessage.dir/src/network/networkapplication.cpp.obj
   CONFIG = Debug
   FLAGS = -O0 -g -Xclang -gcodeview -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd
   LINK_FLAGS = -Xlinker /subsystem:console -fuse-ld=lld

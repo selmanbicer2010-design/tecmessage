@@ -80,4 +80,4 @@ or the generated cmake configs via:
     find_package( REQUIRED CONFIG)
     target_link_libraries(main PRIVATE Boost::beast)
 
-All requested installations completed successfully in: 1.44 ms
+All requested installations completed successfully in: 1.63 ms

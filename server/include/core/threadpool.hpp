@@ -6,7 +6,7 @@
 #include <functional>
 #include <condition_variable>
 
-namespace tecm{
+namespace thread{
 
 class thread_pool;
 
