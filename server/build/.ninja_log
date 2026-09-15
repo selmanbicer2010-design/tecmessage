@@ -24,3 +24,16 @@
 21	3994	8111451333338847	CMakeFiles/tecmessage.dir/src/network/server.cpp.obj	e54d46a8bbbd0fc1
 17	6647	8111451333303648	CMakeFiles/tecmessage.dir/src/network/client.cpp.obj	3583f1e06db783ff
 6647	7447	8111451399609115	tecmessage.exe	3007074980562bf4
+16	1606	8111498570178348	CMakeFiles/tecmessage.dir/src/core/file.cpp.obj	53beda75dae1a24c
+28	2901	8111498570293359	CMakeFiles/tecmessage.dir/src/network/networkapplication.cpp.obj	f80da53c4dc0a045
+11	3097	8111498570128354	CMakeFiles/tecmessage.dir/src/main/main.cpp.obj	5f11e8f572a2d4be
+24	3881	8111498570258350	CMakeFiles/tecmessage.dir/src/network/server.cpp.obj	e54d46a8bbbd0fc1
+21	6534	8111498570218356	CMakeFiles/tecmessage.dir/src/network/client.cpp.obj	3583f1e06db783ff
+6534	7397	8111498635355957	tecmessage.exe	3007074980562bf4
+17	1013	8111626156784327	CMakeFiles/tecmessage.dir/src/core/util.cpp.obj	4dc409827f83071e
+20	1760	8111626156824333	CMakeFiles/tecmessage.dir/src/core/file.cpp.obj	53beda75dae1a24c
+32	3015	8111626156939322	CMakeFiles/tecmessage.dir/src/network/networkapplication.cpp.obj	f80da53c4dc0a045
+13	3448	8111626156744318	CMakeFiles/tecmessage.dir/src/main/main.cpp.obj	5f11e8f572a2d4be
+28	4005	8111626156894316	CMakeFiles/tecmessage.dir/src/network/server.cpp.obj	e54d46a8bbbd0fc1
+24	6687	8111626156859327	CMakeFiles/tecmessage.dir/src/network/client.cpp.obj	3583f1e06db783ff
+6688	7538	8111626223493409	tecmessage.exe	3007074980562bf4

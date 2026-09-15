@@ -17,6 +17,7 @@ class server;
 struct message {
     std::vector<uint8_t> data;
     bool is_text;
+    [[nodiscard("delete if unused")]]
     std::string get_string() {
         return std::string{data.begin(), data.end()};
     }

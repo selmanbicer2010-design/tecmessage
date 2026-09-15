@@ -35,6 +35,10 @@ namespace file{
             jobj(jobj&& other);
             jobj& operator=(const jobj& other);
             jobj& operator=(jobj&& other);
+            bool has(const std::string& key) const {
+                return this->count(key) > 0;
+            }
+
         };
 
         template <typename T>
@@ -52,31 +56,46 @@ namespace file{
         {
             using pun::pun;
 
+            [[nodiscard]]
             const jval& operator[](size_t index) const {
                 return *this->read<jarray>()[index];
             }
 
+            [[nodiscard]]
             const jval& operator[](const std::string& tag) const {
                 return *this->read<jobj>().at(tag);
             }
 
+            [[nodiscard]]
             jval& operator[](size_t index) {
                 return *this->read<jarray>()[index];
             }
 
+            [[nodiscard]]
             jval& operator[](const std::string& tag) {
                 return *this->read<jobj>().at(tag);
             }
 
+            bool is_object() const {
+                return this->is<jobj>();
+            }
+            bool is_array() const {
+                return this->is<jarray>();
+            }
+
+            bool has(const std::string& tag) const {
+                return this->read<jobj>().count(tag) > 0;
+            }
+
             template <typename T>
-            requires isjprimitive<T>
-            operator T() {
+            requires isjvaltype<T>
+            operator T&() {
                 return this->read<T>();
             }
 
             template <typename T>
-            requires isjprimitive<T>
-            operator T() const {
+            requires isjvaltype<T>
+            operator T&() const {
                 return this->read<T>();
             }
 

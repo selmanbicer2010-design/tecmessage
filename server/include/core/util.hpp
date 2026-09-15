@@ -526,7 +526,7 @@ namespace util{
 
         template <typename T>
         requires ( (std::same_as<T, args> or ...) )
-        explicit operator T()
+        explicit operator T&()
         {
             return this->read<T>();
         }
